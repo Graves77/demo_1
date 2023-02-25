@@ -48,4 +48,6 @@ public interface UserService {
      * @return
      */
     String findPassword(String name);
+
+    User information(String name);
 }

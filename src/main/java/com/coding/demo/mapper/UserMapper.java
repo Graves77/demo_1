@@ -31,5 +31,6 @@ public interface UserMapper {
     @Select("SELECT `password`  from `user`  where name=#{name}")
     String findPassword(@Param("name") String name);
 
-
+    @Select("SELECT *  from `user`  where name=#{name}")
+    User information(@Param("name") String name);
 }

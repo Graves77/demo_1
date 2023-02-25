@@ -113,4 +113,9 @@ public class SellerServiceImpl implements SellerService {
         sellerMapper.update(name,IdCard,introduction,location,prove);
     }
 
+    @Override
+    public List<Seller> pageSellerRand() {
+        return sellerMapper.rand();
+    }
+
 }

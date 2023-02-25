@@ -165,4 +165,17 @@ public class UserController {
 
         return new JsonResult("修改失败","400","fail");
     }
+
+    @PostMapping("/information")
+    public JsonResult information(String name){
+        User user = userService.information(name);
+        if(user == null){
+            return new JsonResult("不存在该对象","400","失败");
+        }
+        else{
+            return new JsonResult(user,"200");
+        }
+    }
+
+
 }

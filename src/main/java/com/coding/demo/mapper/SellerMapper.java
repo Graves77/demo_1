@@ -1,7 +1,6 @@
 package com.coding.demo.mapper;
 
 import com.coding.demo.model.Seller;
-import com.coding.demo.model.User;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -60,4 +59,7 @@ public interface SellerMapper {
 
     @Update("update seller set name = #{name}, introduction=#{introduction} , location=#{location}, prove=#{prove} where IdCard = #{IdCard}")
     void update(@Param("name") String name, @Param("IdCard") String IdCard, @Param("introduction") String introduction, @Param("location") String location, @Param("prove") String prove);
+
+    @Select("SELECT * FROM seller ORDER BY RAND() LIMIT 10;")
+    List<Seller> rand();
 }

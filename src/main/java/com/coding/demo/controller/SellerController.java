@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 @Slf4j
 @RestController
@@ -69,6 +70,32 @@ public class SellerController {
                 return new JsonResult("服务器内部错误","500","错误");
             }
     }
+
+    //推荐
+    @PostMapping("/recommend")
+    public JsonResult recommend(int user_id){
+        try{
+            List<Seller> tmp=sellerService.pageSellerRand();
+            return new JsonResult(tmp,"200","推荐成功","success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JsonResult("服务器内部错误","500","错误");
+        }
+    }
+
+    @PostMapping("/evaluate")
+    public JsonResult evaluate(int user_id){
+        Random r = new Random();
+        double a1 = r.nextDouble() * 7 + 3;
+
+        double a2 = r.nextDouble() * 7 + 3;
+
+        double a3 = r.nextDouble() * 7 + 3;
+
+        String  []evaluate={String.format("%.1f",a1),String.format("%.1f",a2),String.format("%.1f",a3)};
+        return new JsonResult(evaluate,"200","查看评分成功","success");
+    }
+
     @PostMapping("/search")
     public JsonResult search( String find,int page) {
         //limit 为8
@@ -141,8 +168,8 @@ public class SellerController {
         }catch (Exception e){
             e.printStackTrace();
             return new JsonResult("服务器异常","500","失败");
-
         }
-
     }
+
+
 }

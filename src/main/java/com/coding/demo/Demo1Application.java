@@ -9,11 +9,12 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.mail.MessagingException;
+import java.util.Scanner;
+import java.util.Vector;
 
 @SpringBootApplication
 @MapperScan("com.coding.demo.mapper")
 public class Demo1Application  extends SpringBootServletInitializer {
-
     public static void main(String[] args) {
         SpringApplication.run(Demo1Application.class, args);
     }

@@ -68,4 +68,6 @@ public interface SellerService {
     Seller sellerDetail(String name);
 
     void update(String name,String IdCard,String introduction,String location,String prove);
+
+    List<Seller> pageSellerRand();
 }
