@@ -2,6 +2,7 @@ package com.coding.demo.service.Impl;
 
 import com.coding.demo.mapper.SellerMapper;
 import com.coding.demo.model.JsonResult;
+import com.coding.demo.model.Position;
 import com.coding.demo.model.Seller;
 import com.coding.demo.service.SellerService;
 import com.coding.demo.utils.SensitiveUtils;
@@ -117,5 +118,22 @@ public class SellerServiceImpl implements SellerService {
     public List<Seller> pageSellerRand() {
         return sellerMapper.rand();
     }
+
+    @Override
+    public int addposition(String name, double latitude, double longitude, String title, String remarks, String phone, Boolean flag) {
+        return sellerMapper.addposition(name,latitude,longitude,title,remarks,phone,flag);
+    }
+
+
+    @Override
+    public List<Position> showposition(String name) {
+        return sellerMapper.showposition(name);
+    }
+
+    @Override
+    public int deleteposition(String name) {
+        return sellerMapper.deleteposition(name);
+    }
+
 
 }

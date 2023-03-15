@@ -2,6 +2,7 @@ package com.coding.demo.controller;
 
 import com.coding.demo.mapper.SellerMapper;
 import com.coding.demo.model.JsonResult;
+import com.coding.demo.model.Position;
 import com.coding.demo.model.Seller;
 import com.coding.demo.service.Impl.SellerServiceImpl;
 import com.coding.demo.service.SellerService;
@@ -172,4 +173,37 @@ public class SellerController {
     }
 
 
+    @PostMapping("/addposition")
+    public JsonResult addPosition(String name,double latitude,double longitude,String title,String remarks,
+                                  String phone,boolean flag){
+        try {
+            sellerService.addposition(name,latitude,longitude,title,remarks,phone,flag);
+            return new JsonResult("添加成功","200","成功","success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new JsonResult("服务器异常","500","失败");
+        }
+    }
+
+    @PostMapping("/showposition")
+    public JsonResult showposition(String name){
+        try {
+            List<Position> tmp = sellerService.showposition(name);
+            return new JsonResult(tmp,"200","成功","success");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new JsonResult("服务器异常","500","失败");
+        }
+    }
+
+    @PostMapping("/deleteposition")
+    public JsonResult deleteposition(String name){
+        try {
+            int result= sellerService.deleteposition(name);
+            return new JsonResult("删除成功","200");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new JsonResult("服务器异常","500","失败");
+        }
+    }
 }

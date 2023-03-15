@@ -1,5 +1,6 @@
 package com.coding.demo.mapper;
 
+import com.coding.demo.model.Position;
 import com.coding.demo.model.Seller;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.annotations.Param;
@@ -62,4 +63,14 @@ public interface SellerMapper {
 
     @Select("SELECT * FROM seller ORDER BY RAND() LIMIT 10;")
     List<Seller> rand();
+
+    @Insert("INSERT INTO position set name=#{name},latitude=#{latitude},longitude=#{longitude},title=#{title},remarks=#{remarks},phone=#{phone},flag=#{flag}")
+    int addposition(@Param("name") String name, @Param("latitude") double latitude, @Param("longitude") double longitude, @Param("title") String title,
+                    @Param("remarks") String remarks, @Param("phone") String phone, @Param("flag") Boolean flag);
+
+    @Select("SELECT * FROM position WHERE `name` = #{name} or flag = 0")
+    List<Position> showposition(String name);
+
+    @Delete("DELETE FROM position WHERE `name`=#{name}")
+    int deleteposition(String name);
 }

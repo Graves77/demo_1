@@ -1,6 +1,8 @@
 package com.coding.demo.service;
 
+import com.coding.demo.model.Position;
 import com.coding.demo.model.Seller;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -70,4 +72,12 @@ public interface SellerService {
     void update(String name,String IdCard,String introduction,String location,String prove);
 
     List<Seller> pageSellerRand();
+
+
+    int addposition(@Param("name") String name, @Param("latitude") double latitude, @Param("longitude") double longitude, @Param("title") String title, @Param("remarks") String remarks, @Param("phone") String phone, @Param("flag") Boolean flag);
+
+
+    List<Position> showposition(String name);
+
+    int deleteposition(String name);
 }
