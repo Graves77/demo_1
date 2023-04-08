@@ -52,27 +52,27 @@ public class FoodController {
 
     @PostMapping("/loadImg")
     public JsonResult uploadImg(@RequestPart("file") MultipartFile file, @Param(value = "id") Integer id){
-        String imgPath = "D:/web/img/food/";//获取图片路径
-        String ImgName = file.getOriginalFilename();
-        String lastName = ImgName.substring(ImgName.lastIndexOf(".")); //获取图片后缀名
-        String newName = id+lastName;//修改图片名字 用户 id+之前图片后缀名(.png)
-        File filePath = new File(imgPath,newName);//整合图片路径
-
-        // 判断路径是否存在，如果不存在就创建一个
-        if (!filePath.getParentFile().exists()) {
-            filePath.getParentFile().mkdirs();
-        }
-        // 将上传的文件保存到一个目标文件当中
         try {
-            file.transferTo(filePath);
-            if (foodService.updateFoodImg("http://localhost:9090/img/food/"+newName,id)== 1){
-                return new JsonResult("图片已保存");
+            if (file != null) {
+                String fileName = System.currentTimeMillis() + file.getOriginalFilename();
+                String upload_file_dir=uploadPathImg;//注意这里需要添加目录信息
+                String destFileName =  uploadPathImg +fileName;
+                //4.第一次运行的时候，这个文件所在的目录往往是不存在的，这里需要创建一下目录（创建到了webapp下uploaded文件夹下）
+                File upload_file_dir_file = new File(upload_file_dir);
+                if (!upload_file_dir_file.exists())
+                {
+                    upload_file_dir_file.mkdirs();
+                }
+                //5.把浏览器上传的文件复制到希望的位置
+                File targetFile = new File(upload_file_dir_file, fileName);
+                file.transferTo(targetFile);
+                //seller.setPictureUrl(fileName);
+                foodService.updateFoodImg(fileName,id);
             }
-            return new JsonResult("保存失败","400","错误");
-        } catch (IOException e) {
+        }catch (Exception e){
             e.printStackTrace();
-            return new JsonResult("服务器异常","500","失败");
         }
+        return new JsonResult("添加成功","200");
     }
     @Value("/home/uploadedImg/")
     private String uploadPathImg;
